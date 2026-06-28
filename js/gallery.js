@@ -68,14 +68,33 @@ const refs = {
   listEl: document.querySelector(".gallery"),
 };
 
+// function imageTemplate(image) {
+//   return `<li class="gallery-item">
+//   <a class="gallery-link" href='${image.original}'>
+//     <img
+//       class="gallery-image"
+//       src='${image.preview}'
+//       data-source='${image.original}'
+//       alt='${image.description}'
+//       width='360'
+//       height='200'
+//     />
+//   </a>
+// </li>
+// `;
+// }
+
+//Той самий код з застосуванням деструктуризації об'єкта
+
 function imageTemplate(image) {
+  const { preview, original, description } = image;
   return `<li class="gallery-item">
-  <a class="gallery-link" href='${image.original}'>
+  <a class="gallery-link" href='${original}'>
     <img
       class="gallery-image"
-      src='${image.preview}'
-      data-source='${image.original}'
-      alt='${image.description}'
+      src='${preview}'
+      data-source='${original}'
+      alt='${description}'
       width='360'
       height='200'
     />
@@ -85,8 +104,26 @@ function imageTemplate(image) {
 }
 
 function imagesTemplate(images) {
-  const markup = images.map(imageTemplate).join("");
+  const markup = images.map(imageTemplate).join("\n");
+  // console.log(markup); //В метод join("\n") додаю \n для того щоб розмітка в консолі відображалась читабельно і зрозуміло
+
   return markup;
 }
 
 refs.listEl.insertAdjacentHTML("afterbegin", imagesTemplate(images));
+
+refs.listEl.addEventListener("click", (e) => {
+  e.preventDefault();
+  if (e.target === e.currentTarget) return;
+  const imgElem = e.target.closest("img");
+  const imageOriginal = imgElem.dataset.source;
+  console.log(imageOriginal);
+
+  showModal(imageOriginal);
+});
+
+function showModal(item) {
+  const markup = `<div class="modal"><img src='${item}' width="1200" height="800"/></div>`;
+  const modal = basicLightbox.create(markup);
+  modal.show();
+}

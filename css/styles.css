@@ -20,4 +20,8 @@ ul {
 img {
   display: block;
   max-width: 100%;
+  transition-duration: 500ms;
+}
+.gallery-image:hover {
+  transform: scale(1.05);
 }
