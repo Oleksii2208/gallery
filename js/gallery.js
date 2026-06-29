@@ -87,7 +87,7 @@ const refs = {
 //Той самий код з застосуванням деструктуризації об'єкта
 
 function imageTemplate(image) {
-  const { preview, original, description } = image;
+  const { preview, original, description } = image; // Якщо ключів багато то краще робити деструктуризацію у змінну в функції
   return `<li class="gallery-item">
   <a class="gallery-link" href='${original}'>
     <img
@@ -117,13 +117,16 @@ refs.listEl.addEventListener("click", (e) => {
   if (e.target === e.currentTarget) return;
   const imgElem = e.target.closest("img");
   const imageOriginal = imgElem.dataset.source;
-  console.log(imageOriginal);
+  // console.log(imageOriginal);
 
   showModal(imageOriginal);
 });
 
+// e.target - місце де подія сталася
+// e.currentTarget - місце на якому стоїть прослуховувач події
+
 function showModal(item) {
-  const markup = `<div class="modal"><img src='${item}' width="1200" height="800"/></div>`;
+  const markup = `<div class="modal"><img src='${item}' width="1112" height="640"/></div>`;
   const modal = basicLightbox.create(markup);
   modal.show();
 }
