@@ -1,3 +1,7 @@
+body {
+  background-color: aquamarine;
+}
+
 .container {
   max-width: 1128px;
   margin: 70px auto;
